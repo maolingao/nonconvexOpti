@@ -9,17 +9,21 @@ b = rand(n,1); % b
 
 Q = RandomRotation(n);
 
-A = Q'*M*Q;
+A = Q'*M*Q;     % matrix A
 
-%% solver - gradient desent
+%% solver - gradient descent
 
+% cancellation criteria
 aux.itr = 1e3;
 aux.tol = 1e-11;
 aux.tolgrad = 1e-9;
 
-x0 = zeros(n,1);
-x_gd = gd(A,b,x0,aux);
+% gradient descent
+x0 = zeros(n,1);        % initial guess
+x_gd = gd(A,b,x0,aux);  
 
-x_true = A\b;
+% true solution
+x_true = A\b;           
 
-diff = max(x_gd - x_true)
+% check sol 
+diff = max(abs(x_gd - x_true))

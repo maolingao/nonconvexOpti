@@ -6,7 +6,7 @@ if ~exist('aux','var');
     aux.tol = 1e-10;
     aux.tolgrad = 1e-6;
 end
-% keyboard
+
 x = x0;
  
 for k = 1 : aux.itr
