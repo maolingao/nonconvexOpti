@@ -1,5 +1,6 @@
-% ex 1 - non convex opti
+% ex 1 - convex opti
 %% generate the problem set Ax = b
+% quadratic loss function
 n = 2;
 c = 1; % magnitude
 
@@ -20,7 +21,7 @@ aux.tolgrad = 1e-9;
 
 % gradient descent
 x0 = zeros(n,1);        % initial guess
-x_gd = gd(A,b,x0,aux);  
+x_gd = gd_quad(A,b,x0,aux);  
 
 % true solution
 x_true = A\b;           

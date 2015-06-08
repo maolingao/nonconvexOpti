@@ -1,5 +1,6 @@
-function x = gd(A,b,x0,aux)
+function x = gd_quad(A,b,x0,aux)
 % gradient descent solver
+% for quadratic function f(x) = 1/2x^TAx - b^Tx
 
 if ~exist('aux','var'); 
     aux.itr = 100; 
