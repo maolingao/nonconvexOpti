@@ -25,7 +25,6 @@ for k = 1 : aux.itr
     chg = alpha*p;
 
     x = x + chg;                    % next guess
-    fun(x) - fun(x-chg)
     assert(fun(x) - fun(x-chg) <= 0, 'ATTENTION : loss funtion is increasing!')
     
     if norm(chg,2) < aux.tol
