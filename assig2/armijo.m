@@ -14,15 +14,15 @@ alpha0 = par.alpha0;
 
 % initial settings
 alpha   = alpha0;
-diff    = 1;                                            % initial diff, ensure step into loop
-f_x     = fun(x);                                       % loss function value @ x
-crp     = c * trace(r*p');                              % reg : change of unit step size in direction p 
+diff    = 1;                        % initial diff, ensure stepping into the loop
+f_x     = fun(x);                   % loss function value @ x
+crp     = c * trace(r*p');          % reg : change of unit step size in direction p 
 
-while diff > 0                                          % cancel if change is not sufficient
+while diff > 0                      % cancel if change is not sufficient
     
-    f_func  = fun(x+alpha*p);                           % loss function value
-    f_cord  = f_x + alpha * crp;                        % cord line value
-    diff    = f_func - f_cord;                          % compare 
+    f_func  = fun(x+alpha*p);       % loss function value
+    f_cord  = f_x + alpha * crp;    % cord line value
+    diff    = f_func - f_cord;      % compare 
     
     if diff > 0
         alpha   = alpha * rho;

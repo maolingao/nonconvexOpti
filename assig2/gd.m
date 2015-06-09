@@ -20,7 +20,7 @@ for k = 1 : aux.itr
     p = - r./(norm(r,'fro') + eps);     % gradient descent direction
 
     alpha = armijo(fun,x,r,p);          % step length - armijo
-%   alpha = analyticlineSearch(A,x,p);  % step length - analytic sol
+%   alpha = analyticlineSearch(aux.A,x,p);  % step length - analytic sol
     
     chg = alpha*p;
 

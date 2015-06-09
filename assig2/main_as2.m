@@ -10,7 +10,7 @@ sa = size(A);
 % cancellation criteria
 aux.itr = 1e5;          % iteration limit
 aux.tol = 1e-6;         % smallest update of estimate
-
+aux.A   = A;
 % gradient descent solver
 x0 = zeros(sa);         % initial guess
 fun = @(x)(1/2*norm((A*x-eye(sa)),'fro')^2);    % loss
