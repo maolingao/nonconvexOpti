@@ -1,6 +1,11 @@
-function x = gd(A,x0,aux)
+function x = gd(fun,grad,x0,aux)
 % gradient descent solver
 % loss function : argmin_x || AX - I ||^2_F
+% fun : loss function handle
+% grad : loss function gradient handle
+% x0 : initial guess
+% aux : cancelation parameters
+
 
 if ~exist('aux','var'); 
     aux.itr = 100; 
@@ -8,18 +13,20 @@ if ~exist('aux','var');
 end
 
 x = x0;
-aux.A = A;
 
 for k = 1 : aux.itr
     
-    p = A' - A'*A*x;               % gradient descent direction
-    p = p./(norm(p,'fro') + eps); 
+    r = grad(x);                        % gradient
+    p = - r./(norm(r,'fro') + eps);     % gradient descent direction
 
-    alpha = armijo(x,p,aux);   % step length
+    alpha = armijo(fun,x,r,p);          % step length - armijo
+%   alpha = analyticlineSearch(A,x,p);  % step length - analytic sol
     
     chg = alpha*p;
 
-    x = x + chg;                   % next guess
+    x = x + chg;                    % next guess
+    fun(x) - fun(x-chg)
+    assert(fun(x) - fun(x-chg) <= 0, 'ATTENTION : loss funtion is increasing!')
     
     if norm(chg,2) < aux.tol
         sprintf('the number of iterations : %d.', k)

@@ -1,5 +1,6 @@
-function alpha = armijo(x,p,aux,par)
+function alpha = armijo(fun,x,r,p,par)
 % line-search : armijo condition (backtracking)
+
 if ~exist('par','var')
     par.c = 0.9;
     par.rho = 0.5;
@@ -11,21 +12,18 @@ c = par.c;
 rho = par.rho;
 alpha0 = par.alpha0;
 
-% aux information
-A = aux.A;
-sa  = size(A);
-I   = eye(sa);
-
 % initial settings
-alpha   = alpha0; 
-diff    = 1;
-f_x     = 1/2 * norm(A*x-I,'fro')^2;                    % loss function value @ x
+alpha   = alpha0;
+diff    = 1;                                            % initial diff, ensure step into loop
+f_x     = fun(x);                                       % loss function value @ x
+crp     = c * trace(r*p');                              % reg : change of unit step size in direction p 
 
-while diff > 0
+while diff > 0                                          % cancel if change is not sufficient
     
-    f_func  = 1/2 * norm(A*(x+alpha*p)-I,'fro')^2;      % loss function value
-    f_cord  = f_x + alpha * c * norm(p,'fro')^2;        % cord line value
+    f_func  = fun(x+alpha*p);                           % loss function value
+    f_cord  = f_x + alpha * crp;                        % cord line value
     diff    = f_func - f_cord;                          % compare 
+    
     if diff > 0
         alpha   = alpha * rho;
     end
