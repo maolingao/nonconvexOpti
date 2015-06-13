@@ -2,7 +2,7 @@ function alpha = armijo(fun,x,r,p,par)
 % line-search : armijo condition (backtracking)
 
 if ~exist('par','var')
-    par.c = 0.9;
+    par.c = 0.5;
     par.rho = 0.5;
     par.alpha0 = 1;
 end
@@ -16,7 +16,7 @@ alpha0 = par.alpha0;
 alpha   = alpha0;
 diff    = 1;                        % initial diff, ensure stepping into the loop
 f_x     = fun(x);                   % loss function value @ x
-crp     = c * trace(r*p');          % reg : change of unit step size in direction p 
+crp     = c * trace(p'*r);          % reg : change of unit step size in direction p 
 
 while diff > 0                      % cancel if change is not sufficient
     
