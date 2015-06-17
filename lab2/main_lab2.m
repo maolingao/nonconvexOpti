@@ -20,8 +20,9 @@ x0 = zeros(n,1);            % initial guess
 fun = @(x)(1/2*(x'*A*x-b'*x));      % loss
 grad = @(x)(A*x - b);               % gradient of loss
 
-x_cg = cg(A,b);                         % conjugate gradient solver 
-x_nlcg = cg_nl(fun,grad,x0,aux);        % conjugate gradient solver  
+x_cg = cg(A,b);                         % linear CG solver 
+keyboard
+x_nlcg = cg_nl(fun,grad,x0,aux);        % non-linear CG solver  
 
 diff_cg = norm(A*x_cg - b,'fro')
 diff_nlcg = norm(A*x_nlcg - b,'fro')
